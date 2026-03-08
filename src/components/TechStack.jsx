@@ -1,82 +1,95 @@
+import { Link } from 'react-router-dom';
 import AnimateIn from './AnimateIn';
 import SectionHeader from './SectionHeader';
 
-const TECH_GROUPS = [
+const PROJECTS = [
   {
-    icon: 'ph-monitor',
-    title: 'Frontend – Giao diện mượt mà',
-    items: [
-      { name: 'ReactJS', desc: 'UI Components', color: '#61DAFB' },
-      { name: 'Vue.js', desc: 'Progressive Framework', color: '#42b883' },
-      { name: 'TailwindCSS', desc: 'Utility-first CSS', color: '#38bdf8' },
-      { name: 'TypeScript', desc: 'Type Safety', color: '#3178c6' },
-    ],
+    slug: 'erp-system',
+    category: 'Manufacturing Ops',
+    title: 'Hệ thống quản lý sản xuất cho doanh nghiệp',
+    desc: 'Nền tảng điều phối kế hoạch sản xuất, BOM, tiến độ lệnh và dashboard vận hành thời gian thực cho doanh nghiệp có nhiều dây chuyền.',
+    image: '/projects/manufacturing-preview.svg',
+    imageAlt: 'Preview dashboard hệ thống quản lý sản xuất',
+    accent: '#f59e0b',
   },
   {
-    icon: 'ph-hard-drives',
-    title: 'Backend – Xử lý mạnh mẽ',
-    items: [
-      { name: 'Java', desc: 'Enterprise Grade', color: '#e76f00' },
-      { name: 'Spring Boot', desc: 'Microservices', color: '#6DB33F' },
-      { name: 'Node.js', desc: 'Runtime Engine', color: '#68A063' },
-      { name: 'PostgreSQL', desc: 'Database', color: '#336791' },
-    ],
+    slug: 'web-app-development',
+    category: 'Omnichannel Commerce',
+    title: 'Website thương mại điện tử',
+    desc: 'Website bán hàng tích hợp quản lý danh mục, giỏ hàng, thanh toán và điều phối đơn từ nhiều kênh cho thương hiệu bán lẻ.',
+    image: '/projects/ecommerce-preview.svg',
+    imageAlt: 'Preview giao diện website thương mại điện tử',
+    accent: '#06b6d4',
   },
   {
-    icon: 'ph-cloud',
-    title: 'Mobile & DevOps',
-    items: [
-      { name: 'Flutter', desc: 'Cross-platform', color: '#027DFD' },
-      { name: 'Docker', desc: 'Containerization', color: '#2496ED' },
-      { name: 'AWS', desc: 'Cloud Platform', color: '#FF9900' },
-      { name: 'CI/CD', desc: 'Automation', color: '#F05032' },
-    ],
+    slug: 'crm-system',
+    category: 'Sales CRM',
+    title: 'CRM quản lý khách hàng',
+    desc: 'Hệ thống tập trung lead, lịch sử chăm sóc, pipeline sales và báo cáo điều hành để đội kinh doanh làm việc trên cùng một nguồn dữ liệu.',
+    image: '/projects/crm-preview.svg',
+    imageAlt: 'Preview dashboard CRM quản lý khách hàng',
+    accent: '#10b981',
+  },
+  {
+    slug: 'mobile-app',
+    category: 'Field Service Mobile',
+    title: 'Ứng dụng mobile đặt dịch vụ',
+    desc: 'Ứng dụng di động cho khách hàng đặt lịch, theo dõi trạng thái xử lý, thanh toán và nhận thông báo thời gian thực trên điện thoại.',
+    image: '/projects/mobile-booking-preview.svg',
+    imageAlt: 'Preview ứng dụng mobile đặt dịch vụ',
+    accent: '#f43f5e',
   },
 ];
 
-function TechIcon({ name, color }) {
-  const initial = name.charAt(0);
+function ProjectThumbnail({ image, imageAlt, category, accent }) {
   return (
-    <div className="tech__item-icon">
-      <svg viewBox="0 0 40 40" fill="none">
-        <circle cx="20" cy="20" r="16" stroke={color} strokeWidth="1.5" />
-        <text x="20" y="25" textAnchor="middle" fill={color} fontSize="14" fontWeight="bold">
-          {initial}
-        </text>
-      </svg>
+    <div className="project-card__thumbnail" style={{ '--project-accent': accent }}>
+      <img className="project-card__thumbnail-image" src={image} alt={imageAlt} loading="lazy" />
+      <div className="project-card__thumbnail-overlay">
+        <span className="project-card__thumbnail-badge">Preview hệ thống</span>
+        <span className="project-card__thumbnail-category">{category}</span>
+      </div>
     </div>
+  );
+}
+
+function ProjectCard({ slug, category, title, desc, delay, ...thumbnailProps }) {
+  return (
+    <AnimateIn delay={delay}>
+      <article className="project-card">
+        <ProjectThumbnail {...thumbnailProps} category={category} />
+
+        <div className="project-card__body">
+          <span className="project-card__category">{category}</span>
+          <h3 className="project-card__title">{title}</h3>
+          <p className="project-card__desc">{desc}</p>
+
+          <Link to={`/services/${slug}`} className="btn btn--outline btn--sm project-card__button">
+            Xem chi tiết <i className="ph ph-arrow-right" />
+          </Link>
+        </div>
+      </article>
+    </AnimateIn>
   );
 }
 
 export default function TechStack() {
   return (
-    <section className="tech" id="tech">
+    <section className="projects" id="tech">
       <div className="container">
         <SectionHeader
-          tag="Công nghệ"
-          title={<>Nền tảng công nghệ <span className="text-gradient">hiện đại &amp; mạnh mẽ</span></>}
-          desc="Chúng tôi lựa chọn những công nghệ hàng đầu thế giới, đảm bảo sản phẩm có tính mở rộng cao, bảo mật tốt và hiệu năng vượt trội."
+          tag="Dự án"
+          title={<>Dự án tiêu biểu <span className="text-gradient">đã triển khai</span></>}
+          desc="Case study được trình bày theo góc nhìn portfolio phần mềm: giao diện sản phẩm rõ ràng, mô tả ngắn gọn và tập trung vào bài toán doanh nghiệp."
         />
 
-        <div className="tech__showcase">
-          {TECH_GROUPS.map((group, gi) => (
-            <AnimateIn key={group.title} delay={gi * 100}>
-              <div className="tech__group">
-                <h3 className="tech__group-title">
-                  <i className={`ph ${group.icon}`} />
-                  {group.title}
-                </h3>
-                <div className="tech__items">
-                  {group.items.map((item) => (
-                    <div className="tech__item" key={item.name}>
-                      <TechIcon name={item.name} color={item.color} />
-                      <span className="tech__item-name">{item.name}</span>
-                      <span className="tech__item-desc">{item.desc}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </AnimateIn>
+        <div className="projects__grid">
+          {PROJECTS.map((project, index) => (
+            <ProjectCard
+              key={project.title}
+              {...project}
+              delay={(index % 3) * 100}
+            />
           ))}
         </div>
       </div>

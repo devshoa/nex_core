@@ -5,8 +5,10 @@ function Stat({ target, suffix, label }) {
   const [ref, count] = useCountUp(target);
   return (
     <div className="hero__stat" ref={ref}>
-      <span className="hero__stat-number">{count}</span>
-      <span className="hero__stat-suffix">{suffix}</span>
+      <div className="hero__stat-value">
+        <span className="hero__stat-number">{count}</span>
+        <span className="hero__stat-suffix">{suffix}</span>
+      </div>
       <span className="hero__stat-label">{label}</span>
     </div>
   );

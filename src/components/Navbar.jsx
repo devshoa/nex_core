@@ -8,7 +8,7 @@ const NAV_IDS = ['hero', 'services', 'tech', 'why-us', 'contact'];
 const NAV_ITEMS = [
   { id: 'hero', label: 'Trang chủ' },
   { id: 'services', label: 'Dịch vụ' },
-  { id: 'tech', label: 'Công nghệ' },
+  { id: 'tech', label: 'Dự án' },
   { id: 'why-us', label: 'Vì sao chọn chúng tôi' },
   { id: 'contact', label: 'Liên hệ' },
 ];
@@ -43,12 +43,20 @@ export default function Navbar() {
     setMenuOpen(false);
   }, [location.pathname]);
 
-  function scrollTo(id) {
-    setMenuOpen(false);
-    if (location.pathname === '/') {
+  function scrollHomeSection(id, delay = 0) {
+    window.setTimeout(() => {
       const el = document.getElementById(id);
       if (el) window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
+    }, delay);
+  }
+
+  function scrollTo(id) {
+    if (location.pathname === '/') {
+      const delay = menuOpen ? 50 : 0;
+      setMenuOpen(false);
+      scrollHomeSection(id, delay);
     } else {
+      setMenuOpen(false);
       navigate('/', { state: { scrollTo: id } });
     }
   }

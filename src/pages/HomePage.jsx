@@ -8,9 +8,16 @@ import WhyUs from '../components/WhyUs';
 import CtaBanner from '../components/CtaBanner';
 import Footer from '../components/Footer';
 import BackToTop from '../components/BackToTop';
+import { useSEO } from '../hooks/useSEO';
 
 export default function HomePage() {
   const location = useLocation();
+
+  useSEO({
+    title: 'NexCore – Giải Pháp Phần Mềm Chuyên Nghiệp | Chuyển Đổi Số Doanh Nghiệp',
+    description:
+      'NexCore – Giải pháp phần mềm chuyên nghiệp: Thiết kế Website, Web App, CRM, ERP, Mobile App. Bứt phá kinh doanh & tối ưu vận hành với công nghệ hiện đại.',
+  });
 
   // Scroll to a section if navigated here with state (e.g., from a service detail page)
   useEffect(() => {
